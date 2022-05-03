@@ -3,7 +3,7 @@ Telegram Bot made by stupid me :)
 """
 
 # Imports
-import os, logging, json, datetime
+import os, logging, json, datetime, def_list
 from pickle import TRUE
 from re import IGNORECASE
 from aiogram import Bot, Dispatcher, executor, types
@@ -23,10 +23,6 @@ approved_list = []
 for element in approved_json:    
     approved_list.append(element['id'])
 
-
-# printers
-print(f'Dialog state at begining: {dialog_dict}')
-
 # Commands handler
 @dp.message_handler(commands=['clean'], user_id = approved_list)
 async def clean_dialog_state(message: types.Message):
@@ -43,6 +39,14 @@ async def approved_dialog(message: types.Message):
     """
     This handler will be called when accessed by approved user.
     """
+    print(message)
+    # time validation
+    if ():
+        pass
+    else:
+        pass
+
+
     # check if has active dialog
     if (str(message.from_user.id) not in dialog_dict):
         dialogtime = datetime.datetime.timestamp(datetime.datetime.now())
@@ -50,16 +54,13 @@ async def approved_dialog(message: types.Message):
     else:
         pass
     
-    await message.reply(f"Hi {message.from_user.username}")
+    # Action key
+    match dialog_dict[str(message.from_user.id)]['action']:
+        case 'none':
+            await message.reply(f"Hi {message.from_user.username}, action in 'none' state")
+            dialog_dict[str(message.from_user.id)]['action'] = 'waiting'
+            dialog_dict[str(message.from_user.id)]['time'] = datetime.datetime.timestamp(datetime.datetime.now())
 
-
-
-
-
-
-    # match dialog_dict:
-    #     case 'active':
-    #         pass
 
 @dp.message_handler()
 async def not_approved_dialog(message: types.Message):
